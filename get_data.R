@@ -46,13 +46,13 @@ json_write <- paste0('[
     "minimal": "', sampled_DF$minimal[1], '", 
     "nationality": "', sampled_DF$nationality[1], '", 
     "dg_min_in_self": ', sampled_DF %>% 
-    filter(type == "Allocate_IG_M_1") %>% 
+    filter(type == "Allocate_IG_M_1" | type == "Allocate_IG_P_1") %>% 
     pull(amount), ', 
     "dg_min_out_self": ', sampled_DF %>% 
-      filter(type == "Allocate_OG_M_1") %>% 
+      filter(type == "Allocate_OG_M_1" | type == "Allocate_OG_P_1") %>% 
       pull(amount), ',
     "dg_min_in_out": ',sampled_DF %>% 
-      filter(type == "Allocate_TG_M_1") %>% 
+      filter(type == "Allocate_TG_M_1" | type == "Allocate_TG_P_1") %>% 
       pull(amount), ',
     "dg_nat_in_self": ', sampled_DF$Allocate_IG_Nat_1[1], ',
     "dg_nat_out_self": ', sampled_DF$Allocate_OG_Nat_1[1], ',
