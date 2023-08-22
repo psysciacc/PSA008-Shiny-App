@@ -1,50 +1,93 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+# Written by Erin M. Buchanan
+
+
+# Libraries ---------------------------------------------------------------
 
 library(shiny)
+library(shinydashboard)
+library(dplyr)
+library(qualtRics)
+library(DT)
 
-# Define UI for application that draws a histogram
-ui <- fluidPage(
+source("tabs.R")
 
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
+# Get Study Data ----------------------------------------------------------
 
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
+# erin's test copy
+survey_id <- "SV_cRMMbFKrVWfF6oS"
 
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("distPlot")
-        )
-    )
-)
+the_study <- fetch_survey(survey_id, 
+                          # use this later for filtering out nonsense 
+                          #start_date = "2018-10-01",
+                          #end_date = "2018-10-31",
+                          #include_questions = variables_needed, 
+                          convert = FALSE,
+                          label = FALSE)
+
+show_DF <- the_study %>% 
+  select(RecordedDate, Progress, ParticipantCode, totalpayoff)
+
+lab_DF <- show_DF %>% 
+  filter(Progress > 50) %>% 
+  group_by(ParticipantCode) %>% 
+  summarize(sample_size = n())
+
+
+# UI ----------------------------------------------------------------------
+
+ui <- dashboardPage(skin = 'purple',
+              dashboardHeader(title = "PSA 008 Tracker"),
+              dashboardSidebar(
+                sidebarMenu(
+                  menuItem(tags$b("Overall"), tabName = "overall_tab")
+                )
+              ),
+              
+              dashboardBody(
+                
+                ## add a custom css file
+                tags$head(tags$style(HTML('
+                .main-header .logo {
+                  font-weight: bold;
+                  font-size: 16px;
+                }
+                .box.box-solid.box-primary>.box-header {
+                  color:#fff;
+                  background:#666666
+                }
+                .box.box-solid.box-primary {
+                  border-bottom-color:#666666;
+                  border-left-color:#666666;
+                  border-right-color:#666666;
+                  border-top-color:#666666;
+                }'))),
+                
+                ## show the tab items
+                tabItems(
+                  overall_tab
+                ) # end tabItems
+              ) # end dashboardBody
+            ) # end dashboardPage
+
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
+  
+  output$show_DF_table <- renderDT({
+    
+    datatable(show_DF, rownames = F,
+              filter = "top",
+              options = list(dom = 'tp'))
+  })
+  
+  output$lab_DF_table <- renderDT({
+    
+    datatable(lab_DF, rownames = F,
+              filter = "top",
+              options = list(dom = 'tp'))
+  })
 
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
 
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white',
-             xlab = 'Waiting time to next eruption (in mins)',
-             main = 'Histogram of waiting times')
-    })
 }
 
 # Run the application 
