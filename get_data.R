@@ -16,6 +16,8 @@ variables_needed <- c("nationality", "playedwith",
                       "Allocate_IG_M_1", "Allocate_OG_M_1", 
                       "Allocate_TG_M_1", "Allocate_IG_P_1",
                       "Allocate_OG_P_1", "Allocate_TG_P_1", 
+                      "Allocate_TG_M_2", "Allocate_TG_M_2",
+                      "Allocate_TG_Nat_2", 
                       "Allocate_IG_Nat_1", "Allocate_OG_Nat_1",
                       "Allocate_TG_Nat_1", "ParticipantCode")
 the_study <- fetch_survey(survey_id, 
@@ -52,11 +54,11 @@ json_write <- paste0('[
       filter(type == "Allocate_OG_M_1" | type == "Allocate_OG_P_1") %>% 
       pull(amount), ',
     "dg_min_in_out": ',sampled_DF %>% 
-      filter(type == "Allocate_TG_M_1" | type == "Allocate_TG_P_1") %>% 
+      filter(type == "Allocate_TG_M_2" | type == "Allocate_TG_P_2") %>% 
       pull(amount), ',
     "dg_nat_in_self": ', sampled_DF$Allocate_IG_Nat_1[1], ',
     "dg_nat_out_self": ', sampled_DF$Allocate_OG_Nat_1[1], ',
-    "dg_nat_in_out": ', sampled_DF$Allocate_TG_Nat_1[1], '
+    "dg_nat_in_out": ', sampled_DF$Allocate_TG_Nat_2[1], '
   }
 ]')
 

@@ -25,7 +25,7 @@ the_study <- fetch_survey(survey_id,
                           label = FALSE)
 
 show_DF <- the_study %>% 
-  select(RecordedDate, Progress, ParticipantCode, totalpayoff)
+  select(RecordedDate, Progress, ParticipantCode, totalmoney, currency)
 
 lab_DF <- show_DF %>% 
   filter(Progress > 50) %>% 
