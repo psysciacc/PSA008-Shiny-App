@@ -59,15 +59,15 @@ if (nrow(small_DF) > 0) {
     na.omit()
   
 } else {
-    sampled_DF <- pilot_DF %>% 
-      na.omit()
-  }
+  sampled_DF <- pilot_DF %>% 
+    na.omit()
+}
 
 codes <- unique(sampled_DF$ParticipantCode)
 
 sampled_DF <- sampled_DF %>% 
   filter(ParticipantCode == codes[sample(1:length(codes), 1)])
-  
+
 
 # write json --------------------------------------------------------------
 json_write <- paste0('[
