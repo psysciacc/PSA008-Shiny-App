@@ -63,8 +63,6 @@ if (nrow(small_DF) > 0) {
       na.omit()
   }
 
-
-
 codes <- unique(sampled_DF$ParticipantCode)
 
 sampled_DF <- sampled_DF %>% 
