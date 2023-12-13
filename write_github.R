@@ -95,10 +95,7 @@ writeLines(json_write, "group_assignment.json")
 
 # push to github ----------------------------------------------------------
 setwd("~/ShinyApps/PSA008")
-git_pull(
-  password = ,
-  
-)
+git_pull()
 git_add(".")
 git_commit("updating group assignments", author = "The Doom Lab <buchananlab@gmail.com>")
 git_push()
