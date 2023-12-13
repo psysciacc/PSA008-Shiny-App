@@ -96,7 +96,8 @@ json_write <- paste0('[
 writeLines(json_write, "group_assignment.json")
 
 # push to github ----------------------------------------------------------
-setwd("~/ShinyApps/PSA008-Shiny-App.git")
+setwd("~/ShinyApps/PSA008")
+git_pull()
 git_add(".")
-git_commit("Adding a file", author = "jerry <jerry@gmail.com>")
-
+git_commit("updating group assignments", author = "The Doom Lab <buchananlab@gmail.com>")
+git_push()

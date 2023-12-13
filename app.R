@@ -1,6 +1,5 @@
 # Written by Erin M. Buchanan
 
-
 # Libraries ---------------------------------------------------------------
 
 library(shiny)
@@ -25,13 +24,13 @@ the_study <- fetch_survey(survey_id,
                           label = FALSE)
 
 show_DF <- the_study %>% 
-  select(RecordedDate, Progress, ParticipantCode, totalmoney, currency)
+  select(RecordedDate, Progress, ParticipantCode, 
+         totalmoney, currency, LabID)
 
 lab_DF <- show_DF %>% 
   filter(Progress > 50) %>% 
-  group_by(ParticipantCode) %>% 
+  group_by(LabID) %>% 
   summarize(sample_size = n())
-
 
 # UI ----------------------------------------------------------------------
 
