@@ -13,8 +13,8 @@ source("tabs.R")
 
 # Get Study Data ----------------------------------------------------------
 
-# erin's test copy
-survey_id <- "SV_cRMMbFKrVWfF6oS"
+# new last changes copy
+survey_id <- "SV_8DoIVJyXWc1Ea7I"
 
 the_study <- fetch_survey(survey_id, 
                           # use this later for filtering out nonsense 
@@ -35,7 +35,7 @@ lab_DF <- show_DF %>%
 
 # UI ----------------------------------------------------------------------
 
-ui <- dashboardPage(skin = 'purple',
+ui <- dashboardPage(skin = 'green',
               dashboardHeader(title = "PSA 008 Tracker"),
               dashboardSidebar(
                 sidebarMenu(

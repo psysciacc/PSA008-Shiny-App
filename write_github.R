@@ -25,7 +25,7 @@ pilot_DF <- import("pilot_data.csv") %>%
   mutate(minimal = substr(type,13,13)) 
 
 # get qualtrics data ------------------------------------------------------
-survey_id <- "SV_cRMMbFKrVWfF6oS" # update this
+survey_id <- "SV_8DoIVJyXWc1Ea7I" # update this
 
 # get the survey data
 the_study <- fetch_survey(survey_id, 
@@ -49,11 +49,20 @@ small_DF <- the_study %>%
 
 
 # grab one random ---------------------------------------------------------
-sampled_DF <- bind_rows(
-  pilot_DF,
-  small_DF
-) %>% 
-  na.omit()
+if (nrow(small_DF) > 0) { 
+  
+  sampled_DF <- bind_rows(
+    pilot_DF,
+    small_DF
+  ) %>% 
+    na.omit()
+  
+} else {
+    sampled_DF <- pilot_DF %>% 
+      na.omit()
+  }
+
+
 
 codes <- unique(sampled_DF$ParticipantCode)
 
@@ -84,4 +93,7 @@ json_write <- paste0('[
 # group role recipient section in qualtrics
 # need to set up something to write out in json format like this:
 writeLines(json_write, "group_assignment.json")
+
+# push to github ----------------------------------------------------------
+
 
