@@ -2,6 +2,7 @@ library(qualtRics)
 library(rio)
 library(dplyr)
 library(tidyr)
+library(gert)
 
 # list of variables needed
 variables_needed <- c("nationality", "playedwith", 
@@ -95,5 +96,7 @@ json_write <- paste0('[
 writeLines(json_write, "group_assignment.json")
 
 # push to github ----------------------------------------------------------
-
+setwd("~/ShinyApps/PSA008-Shiny-App.git")
+git_add(".")
+git_commit("Adding a file", author = "jerry <jerry@gmail.com>")
 
