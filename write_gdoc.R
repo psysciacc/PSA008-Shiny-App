@@ -1,5 +1,3 @@
-# set_canvas_token("cu1tAOSK9KEkdGsPkH5SlMC2vchz3jgD0795V9a66wQOEXK8RZXbMENyRXKrLvvu")
-
 # Libraries ---------------------------------------------------------------
 library(rcanvas)
 library(googlesheets4)
