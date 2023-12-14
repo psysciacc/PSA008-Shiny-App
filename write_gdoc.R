@@ -81,8 +81,8 @@ gradebook_merge <- gradebook_merge %>%
 
 # get all responses
 list_responses_keep <- get_submissions(course_id = 6,
-                                  type = "quizzes",
-                                  type_id = 91)
+                                       type = "quizzes",
+                                       type_id = 91)
 
 # ignore just open / close answers
 list_responses <- list_responses_keep$quiz_submissions %>% 
@@ -105,9 +105,9 @@ if (nrow(list_responses_keep) > 0) {
   for (id in 1:length(ids)){
     
     authorship_survey[[id]] <- get_submission_single(course_id = 6,
-                                              type_id = 91,
-                                              user_id = list_responses_keep$quiz_submissions$user_id[id], 
-                                              assignment_id = 127) 
+                                                     type_id = 91,
+                                                     user_id = list_responses_keep$quiz_submissions$user_id[id], 
+                                                     assignment_id = 127) 
     
     authorship_survey[[id]]$quiz_id <- ids[id]
     
@@ -127,22 +127,22 @@ for (id in 1:length(ids)){
 authorship_answers <- bind_rows(authorship_survey) %>% 
   select(submitted_at, user_id, Question_1:Question_6, Question7.1:Question7.3) %>% 
   rename(Full_Name = Question_1, 
-          Reference_Name = Question_2,
-          Affiliation = Question_3, 
-          Country = Question_4, 
-          Email = Question_5, 
-          COI = Question_6, 
-          ReadRR = Question7.1,
-          ApproveRR = Question7.2,
-          AgreeCA = Question7.3,
-          canvas_id = user_id) %>% 
+         Reference_Name = Question_2,
+         Affiliation = Question_3, 
+         Country = Question_4, 
+         Email = Question_5, 
+         COI = Question_6, 
+         ReadRR = Question7.1,
+         ApproveRR = Question7.2,
+         AgreeCA = Question7.3,
+         canvas_id = user_id) %>% 
   mutate(Full_Name = gsub("<[^>]+>", "", Full_Name),
          Reference_Name = gsub("<[^>]+>", "", Reference_Name),
          Affiliation = gsub("<[^>]+>", "", Affiliation),
          Country = gsub("<[^>]+>", "", Country),
          Email = gsub("<[^>]+>", "", Email),
          COI = gsub("<[^>]+>", "", COI)
-         ) %>% 
+  ) %>% 
   left_join(
     gradebook_merge %>% select(canvas_id, PSA_ID), 
     by = "canvas_id"
@@ -215,9 +215,9 @@ if (nrow(list_responses_keep) > 0) {
   for (id in 85:length(ids)){
     
     dc_survey[[id]] <- get_submission_single(course_id = 6,
-                                                     type_id = 78,
-                                                     user_id = list_responses_keep$quiz_submissions$user_id[id], 
-                                                     assignment_id = 111) 
+                                             type_id = 78,
+                                             user_id = list_responses_keep$quiz_submissions$user_id[id], 
+                                             assignment_id = 111) 
     
     dc_survey[[id]]$quiz_id <- ids[id]
     
@@ -233,7 +233,7 @@ for (id in 1:length(ids)){
   dc_survey[[id]]$Question15.4 <- na.omit(dc_survey[[id]]$submission_history[[1]]$submission_data[[1]]$answer_6774)
   dc_survey[[id]]$Question15.5 <- na.omit(dc_survey[[id]]$submission_history[[1]]$submission_data[[1]]$answer_8476)
 }
-  
+
 dc_answers <- bind_rows(dc_survey) %>% 
   select(submitted_at, user_id, Question_1:Question_32, Question15.1:Question15.5) %>% 
   select(-Question_1, -Question_6, 
@@ -305,6 +305,7 @@ dc_answers <- bind_rows(dc_survey) %>%
                          levels = c("2282", "6642", "4104", "8239", 
                                     "7775", "7976", ""),
                          labels = c("Local Ethics", "Rely Any", 
+<<<<<<< HEAD
                                    "No Requirements", "Rely US", 
                                    "Other", "Previous Local", NA))) %>% 
       mutate(Affiliation_Team = gsub("<[^>]+>", "", Affiliation_Team),
@@ -320,6 +321,23 @@ dc_answers <- bind_rows(dc_survey) %>%
              No_Pay = gsub("<[^>]+>", "", No_Pay),
              Pay_Describe = gsub("<[^>]+>", "", Pay_Describe),
              Ethics_Describe = gsub("<[^>]+>", "", Ethics_Describe)) %>% 
+=======
+                                    "No Requirements", "Rely US", 
+                                    "Other", "Previous Local", NA))) %>% 
+  mutate(Affiliation_Team = gsub("<[^>]+>", "", Affiliation_Team),
+         Translation_Lang = gsub("<[^>]+>", "", Translation_Lang),
+         Translation_Email = gsub("<[^>]+>", "", Translation_Email),
+         DC_Team = gsub("<[^>]+>", "", DC_Team),
+         DC_Lang = gsub("<[^>]+>", "", DC_Lang),
+         DC_Country = gsub("<[^>]+>", "", DC_Country),
+         DC_Lang = gsub("<[^>]+>", "", DC_Lang),
+         DC_Sample = gsub("<[^>]+>", "", DC_Sample),
+         Describe_Sample = gsub("<[^>]+>", "", Describe_Sample),
+         Compensation_Describe = gsub("<[^>]+>", "", Compensation_Describe),
+         No_Pay = gsub("<[^>]+>", "", No_Pay),
+         Pay_Describe = gsub("<[^>]+>", "", Pay_Describe),
+         Ethics_Describe = gsub("<[^>]+>", "", Ethics_Describe)) %>% 
+>>>>>>> df4ce1a002d01e8519f52cf23898187b415ac8ca
   left_join(
     gradebook_merge %>% select(PSA_ID, canvas_id, user.name, group_name),
     by = "canvas_id"
@@ -341,7 +359,7 @@ write_sheet(dc_answers2,
 
 # Final Gradebook Write ---------------------------------------------------
 old_grade <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1LwZAtDUZ4dzGzRIBumnvS9_kskCkRHTYAbX4xet4ZU8/edit?usp=sharing",
-                     sheet = "Gradebook")
+                        sheet = "Gradebook")
 old_grade <- old_grade %>% 
   select(-colnames(gradebook_merge), PSA_ID)
 
