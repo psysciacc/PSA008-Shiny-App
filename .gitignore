@@ -4,9 +4,5 @@
 .Ruserdata
 api_key.R
 git_api.R
-<<<<<<< HEAD
 .secrets
 google.json
-=======
-client_secret_788588735055-u5dd87t32g7gbijms8ln1o5bmrn1ldu6.apps.googleusercontent.com.json
->>>>>>> df4ce1a002d01e8519f52cf23898187b415ac8ca
