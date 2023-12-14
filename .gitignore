@@ -4,3 +4,5 @@
 .Ruserdata
 api_key.R
 git_api.R
+.secrets
+google.json

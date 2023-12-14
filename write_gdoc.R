@@ -4,6 +4,11 @@ library(googlesheets4)
 library(dplyr)
 library(tidyr)
 
+options(
+  gargle_oauth_cache = ".secrets",
+  gargle_oauth_email = 'buchananlab@gmail.com'
+)
+
 # Set Variables -----------------------------------------------------------
 set_canvas_domain("https://canvas.psysciacc.org")
 
@@ -301,8 +306,20 @@ dc_answers <- bind_rows(dc_survey) %>%
                                     "7775", "7976", ""),
                          labels = c("Local Ethics", "Rely Any", 
                                    "No Requirements", "Rely US", 
-                                   "Other", "Previous Local", NA))
-) %>% 
+                                   "Other", "Previous Local", NA))) %>% 
+      mutate(Affiliation_Team = gsub("<[^>]+>", "", Affiliation_Team),
+             Translation_Lang = gsub("<[^>]+>", "", Translation_Lang),
+             Translation_Email = gsub("<[^>]+>", "", Translation_Email),
+             DC_Team = gsub("<[^>]+>", "", DC_Team),
+             DC_Lang = gsub("<[^>]+>", "", DC_Lang),
+             DC_Country = gsub("<[^>]+>", "", DC_Country),
+             DC_Lang = gsub("<[^>]+>", "", DC_Lang),
+             DC_Sample = gsub("<[^>]+>", "", DC_Sample),
+             Describe_Sample = gsub("<[^>]+>", "", Describe_Sample),
+             Compensation_Describe = gsub("<[^>]+>", "", Compensation_Describe),
+             No_Pay = gsub("<[^>]+>", "", No_Pay),
+             Pay_Describe = gsub("<[^>]+>", "", Pay_Describe),
+             Ethics_Describe = gsub("<[^>]+>", "", Ethics_Describe)) %>% 
   left_join(
     gradebook_merge %>% select(PSA_ID, canvas_id, user.name, group_name),
     by = "canvas_id"
