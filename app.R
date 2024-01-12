@@ -10,6 +10,10 @@ library(DT)
 
 source("tabs.R")
 
+# group assignments 
+# check the money assignments is correct 
+# 
+
 # Get Study Data ----------------------------------------------------------
 
 # new last changes copy
@@ -25,7 +29,8 @@ the_study <- fetch_survey(survey_id,
 
 show_DF <- the_study %>% 
   select(RecordedDate, Progress, ParticipantCode, 
-         totalmoney, currency, LabID)
+         totalmoney, currency, totalpayoff, LabID, 
+         Q_Language, role, CountryLan, mingroup)
 
 lab_DF <- show_DF %>% 
   filter(Progress > 50) %>% 
@@ -76,7 +81,7 @@ server <- function(input, output) {
     
     datatable(show_DF, rownames = F,
               filter = "top",
-              options = list(dom = 'tp'))
+              options = list(dom = 'tp', scrollX = TRUE))
   })
   
   output$lab_DF_table <- renderDT({
