@@ -7,3 +7,5 @@ git_api.R
 .secrets
 google.json
 .DS_Store
+write_gdoc.log
+write_github.log
