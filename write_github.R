@@ -10,7 +10,8 @@ variables_needed <- c("nationality", "playedwith",
                       "Allocate_TG_M_1", "Allocate_IG_P_1",
                       "Allocate_OG_P_1", "Allocate_TG_P_1",
                       "Allocate_TG_Nat_1","Allocate_IG_Nat_1", 
-                      "Allocate_OG_Nat_1", "ParticipantCode")
+                      "Allocate_OG_Nat_1", "ParticipantCode",
+                      "mingroup")
 
 # TG_1 is ingroup
 # OG and IG_1 is self 
@@ -20,11 +21,10 @@ pilot_DF <- import("pilot_data.csv") %>%
   select(all_of(variables_needed)) %>%
   pivot_longer(cols = c(-nationality, -playedwith, -ParticipantCode,
                         -Allocate_IG_Nat_1, -Allocate_OG_Nat_1,
-                        -Allocate_TG_Nat_1),
+                        -Allocate_TG_Nat_1, -mingroup),
                names_to = "type",
                values_to = "amount") %>%
-  filter(!is.na(amount)) %>%
-  mutate(minimal = substr(type,13,13))
+  filter(!is.na(amount))
 
 # get qualtrics data ------------------------------------------------------
 survey_id <- "SV_8DoIVJyXWc1Ea7I" # update this
@@ -42,11 +42,10 @@ small_DF <- the_study %>%
   select(all_of(variables_needed)) %>%
   pivot_longer(cols = c(-nationality, -playedwith, -ParticipantCode,
                         -Allocate_IG_Nat_1, -Allocate_OG_Nat_1,
-                        -Allocate_TG_Nat_1),
+                        -Allocate_TG_Nat_1, - mingroup),
                names_to = "type",
                values_to = "amount") %>%
-  filter(!is.na(amount)) %>%
-  mutate(minimal = substr(type,13,13)) %>%
+  filter(!is.na(amount)) %>% 
   mutate(ParticipantCode = as.character(ParticipantCode))
 
 
@@ -73,7 +72,7 @@ sampled_DF <- sampled_DF %>%
 # write json --------------------------------------------------------------
 json_write <- paste0('[
   {
-    "minimal": "', sampled_DF$minimal[1], '",
+    "minimal": "', sampled_DF$mingroup[1], '",
     "nationality": "', sampled_DF$nationality[1], '",
     "dg_min_in_self": ', sampled_DF %>%
                        filter(type == "Allocate_IG_M_1" | type == "Allocate_IG_P_1") %>%
@@ -86,7 +85,7 @@ json_write <- paste0('[
                        pull(amount), ',
     "dg_nat_in_self": ', sampled_DF$Allocate_IG_Nat_1[1], ',
     "dg_nat_out_self": ', sampled_DF$Allocate_OG_Nat_1[1], ',
-    "dg_nat_in_out": ', sampled_DF$Allocate_TG_Nat_2[1], '
+    "dg_nat_in_out": ', sampled_DF$Allocate_TG_Nat_1[1], '
   }
 ]')
 
