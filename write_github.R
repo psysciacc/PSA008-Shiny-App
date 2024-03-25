@@ -17,7 +17,7 @@ variables_needed <- c("nationality", "playedwith",
 # OG and IG_1 is self 
 
 # get pilot data ----------------------------------------------------------
-pilot_DF <- import("pilot_data.csv") %>%
+pilot_DF <- import("~/ShinyApps/PSA008/pilot_data.csv") %>%
   select(all_of(variables_needed)) %>%
   pivot_longer(cols = c(-nationality, -playedwith, -ParticipantCode,
                         -Allocate_IG_Nat_1, -Allocate_OG_Nat_1,
