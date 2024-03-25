@@ -12,7 +12,7 @@ variables_needed <- c("nationality", "playedwith",
                       "Allocate_TG_Nat_1","Allocate_IG_Nat_1", 
                       "Allocate_OG_Nat_1", "ParticipantCode",
                       "mingroup",
-                      "RecordedDate", "Progress", "totalmoney", "LabID")
+                      "Progress", "totalmoney")
 
 # TG_1 is ingroup
 # OG and IG_1 is self 
@@ -23,7 +23,7 @@ pilot_DF <- import("~/ShinyApps/PSA008/pilot_data.csv") %>%
   pivot_longer(cols = c(-nationality, -playedwith, -ParticipantCode,
                         -Allocate_IG_Nat_1, -Allocate_OG_Nat_1,
                         -Allocate_TG_Nat_1, -mingroup, 
-                        -RecordedDate, -Progress, -totalmoney, -LabID),
+                        -Progress, -totalmoney),
                names_to = "type",
                values_to = "amount") %>%
   filter(!is.na(amount))
@@ -41,7 +41,7 @@ the_study <- fetch_survey(survey_id,
                           label = FALSE)
 
 small_DF <- the_study %>%
-  select(all_of(variables_needed)) %>%
+  select(all_of(variables_needed), RecordedDate, LabID) %>%
   pivot_longer(cols = c(-nationality, -playedwith, -ParticipantCode,
                         -Allocate_IG_Nat_1, -Allocate_OG_Nat_1,
                         -Allocate_TG_Nat_1, - mingroup,
