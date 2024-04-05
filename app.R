@@ -17,7 +17,7 @@ source("tabs.R")
 # Get Study Data ----------------------------------------------------------
 
 # new last changes copy
-survey_id <- "SV_8DoIVJyXWc1Ea7I"
+survey_id <- "SV_8k10IEYESlBLf5I"
 
 the_study <- fetch_survey(survey_id, 
                           # use this later for filtering out nonsense 
@@ -28,12 +28,12 @@ the_study <- fetch_survey(survey_id,
                           label = FALSE)
 
 show_DF <- the_study %>% 
-  select(RecordedDate, Progress, ParticipantCode, 
-         totalmoney, currency, totalpayoff, LabID, 
-         Q_Language, role, CountryLan, mingroup)
+  select(LabID, country, RecordedDate, Progress, 
+         ParticipantCode, currency, totalmoney) %>% 
+  mutate(totalmoney = round(totalmoney, digits = 2))
 
 lab_DF <- show_DF %>% 
-  filter(Progress > 50) %>% 
+  # filter(Progress > 50) %>% 
   group_by(LabID) %>% 
   summarize(sample_size = n())
 

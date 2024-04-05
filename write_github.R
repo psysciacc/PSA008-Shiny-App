@@ -29,7 +29,7 @@ pilot_DF <- import("~/ShinyApps/PSA008/pilot_data.csv") %>%
   filter(!is.na(amount))
 
 # get qualtrics data ------------------------------------------------------
-survey_id <- "SV_8DoIVJyXWc1Ea7I" # update this
+survey_id <- "SV_8k10IEYESlBLf5I" 
 
 # get the survey data
 the_study <- fetch_survey(survey_id,
