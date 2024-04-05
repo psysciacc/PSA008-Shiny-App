@@ -305,7 +305,6 @@ dc_answers <- bind_rows(dc_survey) %>%
                          levels = c("2282", "6642", "4104", "8239", 
                                     "7775", "7976", ""),
                          labels = c("Local Ethics", "Rely Any", 
-<<<<<<< HEAD
                                    "No Requirements", "Rely US", 
                                    "Other", "Previous Local", NA))) %>% 
       mutate(Affiliation_Team = gsub("<[^>]+>", "", Affiliation_Team),
@@ -321,23 +320,6 @@ dc_answers <- bind_rows(dc_survey) %>%
              No_Pay = gsub("<[^>]+>", "", No_Pay),
              Pay_Describe = gsub("<[^>]+>", "", Pay_Describe),
              Ethics_Describe = gsub("<[^>]+>", "", Ethics_Describe)) %>% 
-=======
-                                    "No Requirements", "Rely US", 
-                                    "Other", "Previous Local", NA))) %>% 
-  mutate(Affiliation_Team = gsub("<[^>]+>", "", Affiliation_Team),
-         Translation_Lang = gsub("<[^>]+>", "", Translation_Lang),
-         Translation_Email = gsub("<[^>]+>", "", Translation_Email),
-         DC_Team = gsub("<[^>]+>", "", DC_Team),
-         DC_Lang = gsub("<[^>]+>", "", DC_Lang),
-         DC_Country = gsub("<[^>]+>", "", DC_Country),
-         DC_Lang = gsub("<[^>]+>", "", DC_Lang),
-         DC_Sample = gsub("<[^>]+>", "", DC_Sample),
-         Describe_Sample = gsub("<[^>]+>", "", Describe_Sample),
-         Compensation_Describe = gsub("<[^>]+>", "", Compensation_Describe),
-         No_Pay = gsub("<[^>]+>", "", No_Pay),
-         Pay_Describe = gsub("<[^>]+>", "", Pay_Describe),
-         Ethics_Describe = gsub("<[^>]+>", "", Ethics_Describe)) %>% 
->>>>>>> df4ce1a002d01e8519f52cf23898187b415ac8ca
   left_join(
     gradebook_merge %>% select(PSA_ID, canvas_id, user.name, group_name),
     by = "canvas_id"
