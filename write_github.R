@@ -94,7 +94,7 @@ json_write <- paste0('[
 
 # group role recipient section in qualtrics
 # need to set up something to write out in json format like this:
-writeLines(json_write, "group_assignment.json")
+writeLines(json_write, "~/ShinyApps/PSA008/group_assignment.json")
 
 # push to github ----------------------------------------------------------
 setwd("~/ShinyApps/PSA008")
