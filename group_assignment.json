@@ -1,12 +1,12 @@
 [
   {
-    "minimal": "secondletter",
+    "minimal": "firstletter",
     "nationality": "American",
-    "dg_min_in_self": 9,
-    "dg_min_out_self": 11,
-    "dg_min_in_out": 8,
-    "dg_nat_in_self": 19,
-    "dg_nat_out_self": 2,
-    "dg_nat_in_out": 8
+    "dg_min_in_self": 8,
+    "dg_min_out_self": 19,
+    "dg_min_in_out": 13,
+    "dg_nat_in_self": 11,
+    "dg_nat_out_self": 20,
+    "dg_nat_in_out": 9
   }
 ]
