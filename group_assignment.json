@@ -1,7 +1,7 @@
 [
   {
-    "minimal": "secondletter",
-    "nationality": "TO_ADD",
+    "minimal": "firstletter",
+    "nationality": "русские",
     "dg_min_in_self": 20,
     "dg_min_out_self": 20,
     "dg_min_in_out": 20,
