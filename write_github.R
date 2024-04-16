@@ -68,9 +68,12 @@ if (nrow(small_DF) > 0) {
 
 codes <- unique(sampled_DF$ParticipantCode)
 
+sampled_DF <- sampled_DF %>% 
+  filter(!(LabID == "SurveyGenerated")) %>% 
+  filter(!(grepl("Test|test", LabID)))
+
 sampled_DF <- sampled_DF %>%
   filter(ParticipantCode == codes[sample(1:length(codes), 1)])
-
 
 # write json --------------------------------------------------------------
 json_write <- paste0('[
