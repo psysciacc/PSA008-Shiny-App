@@ -28,9 +28,13 @@ the_study <- fetch_survey(survey_id,
                           label = FALSE)
 
 show_DF <- the_study %>% 
+  filter(!(LabID == "SurveyGenerated")) %>% 
+  filter(!(grepl("Test|test", LabID))) %>% 
+  filter(!is.na(LabID)) %>% 
   select(LabID, country, RecordedDate, Progress, 
          ParticipantCode, currency, totalmoney) %>% 
   mutate(totalmoney = round(totalmoney, digits = 2))
+  
 
 lab_DF <- show_DF %>% 
   # filter(Progress > 50) %>% 
