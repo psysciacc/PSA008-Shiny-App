@@ -33,7 +33,9 @@ show_DF <- the_study %>%
   filter(!is.na(LabID)) %>% 
   select(LabID, country, RecordedDate, Progress, 
          ParticipantCode, currency, totalmoney) %>% 
-  mutate(totalmoney = round(totalmoney, digits = 2))
+  mutate(totalmoney = round(totalmoney, digits = 2)) %>% 
+  mutate(ParticipantCode = as.character(ParticipantCode))
+
   
 
 lab_DF <- show_DF %>% 
