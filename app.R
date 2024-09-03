@@ -37,11 +37,13 @@ show_DF <- the_study %>%
   mutate(totalmoney = round(totalmoney, digits = 2)) %>% 
   mutate(ParticipantCode = as.character(ParticipantCode))
 
-  
-
 lab_DF <- show_DF %>% 
   # filter(Progress > 50) %>% 
   group_by(LabID) %>% 
+  summarize(sample_size = n())
+
+country_DF <- show_DF %>% 
+  group_by(country) %>% 
   summarize(sample_size = n())
 
 # UI ----------------------------------------------------------------------
@@ -50,7 +52,8 @@ ui <- dashboardPage(skin = 'green',
               dashboardHeader(title = "PSA 008 Tracker"),
               dashboardSidebar(
                 sidebarMenu(
-                  menuItem(tags$b("Overall"), tabName = "overall_tab")
+                  menuItem(tags$b("Overall"), tabName = "overall_tab"),
+                  menuItem(tags$b("Countries"), tabName = "country_tab")
                 )
               ),
               
@@ -75,7 +78,8 @@ ui <- dashboardPage(skin = 'green',
                 
                 ## show the tab items
                 tabItems(
-                  overall_tab
+                  overall_tab,
+                  country_tab
                 ) # end tabItems
               ) # end dashboardBody
             ) # end dashboardPage
@@ -94,6 +98,13 @@ server <- function(input, output) {
   output$lab_DF_table <- renderDT({
     
     datatable(lab_DF, rownames = F,
+              filter = "top",
+              options = list(dom = 'tp'))
+  })
+  
+  output$country_DF_table <- renderDT({
+    
+    datatable(country_DF, rownames = F,
               filter = "top",
               options = list(dom = 'tp'))
   })

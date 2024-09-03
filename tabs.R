@@ -33,3 +33,25 @@ overall_tab <-
           ) #close row
           
   ) #close tab
+
+country_tab <- 
+  tabItem(tabName = "country_tab",
+          fluidRow(
+            
+            # country table ----
+            box(
+              title = tags$b("Country Summary"),
+              collapsible = TRUE,
+              solidHeader = TRUE,
+              status = "primary",
+              width = 12,
+              p("This section allows you to see 
+                the total number of participants 
+                from your lab."),
+              DTOutput("country_DF_table")
+              
+            ) # close box
+            
+          ) #close row
+          
+  ) #close tab
