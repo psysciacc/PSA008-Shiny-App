@@ -38,7 +38,7 @@ show_DF <- the_study %>%
   mutate(ParticipantCode = as.character(ParticipantCode))
 
 lab_DF <- show_DF %>% 
-  # filter(Progress > 50) %>% 
+  filter(Progress == 100) %>% 
   group_by(LabID) %>% 
   summarize(sample_size = n())
 
@@ -89,21 +89,18 @@ ui <- dashboardPage(skin = 'green',
 server <- function(input, output) {
   
   output$show_DF_table <- renderDT({
-    
     datatable(show_DF, rownames = F,
               filter = "top",
               options = list(dom = 'tp', scrollX = TRUE))
   })
   
   output$lab_DF_table <- renderDT({
-    
     datatable(lab_DF, rownames = F,
               filter = "top",
               options = list(dom = 'tp'))
   })
   
   output$country_DF_table <- renderDT({
-    
     datatable(country_DF, rownames = F,
               filter = "top",
               options = list(dom = 'tp'))
