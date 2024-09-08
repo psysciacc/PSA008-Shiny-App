@@ -38,9 +38,11 @@ show_DF <- the_study %>%
   mutate(ParticipantCode = as.character(ParticipantCode))
 
 lab_DF <- show_DF %>% 
-  filter(Progress == 100) %>% 
-  group_by(LabID) %>% 
-  summarize(sample_size = n())
+  filter(Progress == 100) %>%
+  group_by(LabID) %>%
+  summarize(sample_size = n(),
+            StartDate = min(RecordedDate), 
+            EndDate = max(RecordedDate))
 
 country_DF <- show_DF %>% 
   group_by(country) %>% 
