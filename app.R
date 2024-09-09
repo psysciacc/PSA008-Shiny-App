@@ -39,12 +39,12 @@ show_DF <- the_study %>%
 
 lab_DF <- show_DF %>% 
   filter(Progress == 100) %>%
-  filter(!is.na(totalmoney)) %>%
+  # filter(!is.na(totalmoney)) %>%
   group_by(LabID) %>%
   summarize(sample_size = n(),
             StartDate = min(RecordedDate), 
             EndDate = max(RecordedDate),
-            totalmoney = sum(totalmoney),
+            totalmoney = sum(totalmoney, na.rm = T),
             currency = names(which.max(table(currency))))
 
 country_DF <- show_DF %>% 
