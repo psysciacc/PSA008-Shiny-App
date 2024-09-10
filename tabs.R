@@ -46,8 +46,7 @@ country_tab <-
               status = "primary",
               width = 12,
               p("This section allows you to see 
-                the total number of participants 
-                from your lab."),
+                the total number of participants by country."),
               DTOutput("country_DF_table")
               
             ) # close box

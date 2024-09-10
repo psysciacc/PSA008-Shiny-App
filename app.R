@@ -40,6 +40,7 @@ show_DF <- the_study %>%
 lab_DF <- show_DF %>% 
   filter(Progress == 100) %>%
   # filter(!is.na(totalmoney)) %>%
+  mutate(LabID = as.numeric(gsub("[[:punct:]]", "", LabID))) %>% 
   group_by(LabID) %>%
   summarize(sample_size = n(),
             StartDate = min(RecordedDate), 
