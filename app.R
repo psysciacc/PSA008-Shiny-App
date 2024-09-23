@@ -58,14 +58,13 @@ country_DF <- show_DF %>%
 
 #Map Stuff --------------------------------------------------------------------
 
-download.file(
-  "https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/world_shape_file.zip"
-  destfile = "DATA/world_shape_file.zip"
-)
-system("unzip DATA/world_shape_file.zip")
+# download.file(
+#   "https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/world_shape_file.zip",
+#   destfile = "world_shape_file.zip"
+# )
+# system("unzip world_shape_file.zip")
 world_sf <- read_sf(paste0(
-  getwd(), "/DATA/world_shape_file/",
-  "TM_WORLD_BORDERS_SIMPL-0.3.shp"
+  getwd(), "/TM_WORLD_BORDERS_SIMPL-0.3.shp"
 ))
 world_sf <- world_sf %>%
   mutate(POP2005 = ifelse(POP2005 == 0, NA, round(POP2005 / 1000000, 2)))
@@ -74,7 +73,7 @@ mypalette <- colorNumeric(
   palette = "viridis", domain = world_sf$POP2005,
   na.color = "transparent"
 )
-mypalette(c(45, 43))
+# mypalette(c(45, 43))
 
 m <- leaflet(world_sf) %>%
   addTiles() %>%
