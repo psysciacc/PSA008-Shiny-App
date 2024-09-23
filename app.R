@@ -8,6 +8,10 @@ library(dplyr)
 library(qualtRics)
 library(DT)
 
+library(sf)
+library(leaflet)
+library(RColorBrewer)
+
 # source("api_key.R")
 source("tabs.R")
 
@@ -51,6 +55,66 @@ lab_DF <- show_DF %>%
 country_DF <- show_DF %>% 
   group_by(country) %>% 
   summarize(sample_size = n())
+
+#Map Stuff --------------------------------------------------------------------
+
+download.file(
+  "https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/world_shape_file.zip"
+  destfile = "DATA/world_shape_file.zip"
+)
+system("unzip DATA/world_shape_file.zip")
+world_sf <- read_sf(paste0(
+  getwd(), "/DATA/world_shape_file/",
+  "TM_WORLD_BORDERS_SIMPL-0.3.shp"
+))
+world_sf <- world_sf %>%
+  mutate(POP2005 = ifelse(POP2005 == 0, NA, round(POP2005 / 1000000, 2)))
+
+mypalette <- colorNumeric(
+  palette = "viridis", domain = world_sf$POP2005,
+  na.color = "transparent"
+)
+mypalette(c(45, 43))
+
+m <- leaflet(world_sf) %>%
+  addTiles() %>%
+  setView(lat = 10, lng = 0, zoom = 2) %>%
+  addPolygons(fillColor = ~ mypalette(POP2005), stroke = FALSE)
+
+mytext <- paste(
+  "Country: ", world_sf$NAME, "<br/>",
+  "Area: ", world_sf$AREA, "<br/>",
+  "Population: ", round(world_sf$POP2005, 2),
+  sep = ""
+) %>%
+  lapply(htmltools::HTML)
+
+mybins <- c(0, 10, 20, 50, 100, 500, Inf)
+mypalette <- colorBin(
+  palette = "YlOrBr", domain = world_sf$POP2005,
+  na.color = "transparent", bins = mybins
+)
+
+m <- leaflet(world_sf) %>%
+  addTiles() %>%
+  setView(lat = 10, lng = 0, zoom = 2) %>%
+  addPolygons(
+    fillColor = ~ mypalette(POP2005),
+    stroke = TRUE,
+    fillOpacity = 0.9,
+    color = "white",
+    weight = 0.3,
+    label = mytext,
+    labelOptions = labelOptions(
+      style = list("font-weight" = "normal", padding = "3px 8px"),
+      textsize = "13px",
+      direction = "auto"
+    )
+  ) %>%
+  addLegend(
+    pal = mypalette, values = ~POP2005, opacity = 0.9,
+    title = "Population (M)", position = "bottomleft"
+  )
 
 # UI ----------------------------------------------------------------------
 
