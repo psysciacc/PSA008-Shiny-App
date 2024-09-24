@@ -73,7 +73,7 @@ world_sf <- country_DF %>%
   mutate(country = replace(country, country == 'the United Kingdom', 'United Kingdom')) %>%
   mutate(country = replace(country, country == 'The Netherlands', 'Netherlands')) %>%
   mutate(country = replace(country, country == 'Nederland', 'Netherlands')) %>%
-  right_join(world_sf, country_DF, by = c("NAME" = "country"))
+  right_join(world_sf, country_DF, by = c('country' = 'NAME'))
 
 mypalette <- colorNumeric(
   palette = "viridis", domain = world_sf$sample_size,
