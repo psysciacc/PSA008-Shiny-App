@@ -49,6 +49,18 @@ country_tab <-
                 the total number of participants by country."),
               DTOutput("country_DF_table")
               
+            ), # close box
+            
+            box(
+              title = tags$b("Country Map"),
+              collapsible = TRUE,
+              solidHeader = TRUE,
+              status = "primary",
+              width = 12,
+              p("This section allows you to see 
+                the total number of participants by country."),
+              leafletOutput("map"),
+              
             ) # close box
             
           ) #close row

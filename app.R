@@ -58,62 +58,30 @@ country_DF <- show_DF %>%
 
 #Map Stuff --------------------------------------------------------------------
 
-# download.file(
-#   "https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/world_shape_file.zip",
-#   destfile = "world_shape_file.zip"
-# )
-# system("unzip world_shape_file.zip")
+download.file(
+  "https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/world_shape_file.zip",
+  destfile = "world_shape_file.zip")
+
+system("unzip world_shape_file.zip")
+
 world_sf <- read_sf(paste0(
   getwd(), "/TM_WORLD_BORDERS_SIMPL-0.3.shp"
 ))
-world_sf <- world_sf %>%
-  mutate(POP2005 = ifelse(POP2005 == 0, NA, round(POP2005 / 1000000, 2)))
 
-mypalette <- colorNumeric(
-  palette = "viridis", domain = world_sf$POP2005,
-  na.color = "transparent"
-)
-# mypalette(c(45, 43))
+world_sf <- country_DF
 
-m <- leaflet(world_sf) %>%
-  addTiles() %>%
-  setView(lat = 10, lng = 0, zoom = 2) %>%
-  addPolygons(fillColor = ~ mypalette(POP2005), stroke = FALSE)
+#mypalette <- colorNumeric(
+#  palette = "viridis", domain = world_sf$country,
+#  na.color = "transparent"
+#)
 
 mytext <- paste(
-  "Country: ", world_sf$NAME, "<br/>",
-  "Area: ", world_sf$AREA, "<br/>",
-  "Population: ", round(world_sf$POP2005, 2),
+  "Country: ", world_sf$country, "<br/>",
+  "Area: ", world_sf$country, "<br/>",
+  #"Population: ", round(world_sf$POP2005, 2),
   sep = ""
 ) %>%
   lapply(htmltools::HTML)
-
-mybins <- c(0, 10, 20, 50, 100, 500, Inf)
-mypalette <- colorBin(
-  palette = "YlOrBr", domain = world_sf$POP2005,
-  na.color = "transparent", bins = mybins
-)
-
-m <- leaflet(world_sf) %>%
-  addTiles() %>%
-  setView(lat = 10, lng = 0, zoom = 2) %>%
-  addPolygons(
-    fillColor = ~ mypalette(POP2005),
-    stroke = TRUE,
-    fillOpacity = 0.9,
-    color = "white",
-    weight = 0.3,
-    label = mytext,
-    labelOptions = labelOptions(
-      style = list("font-weight" = "normal", padding = "3px 8px"),
-      textsize = "13px",
-      direction = "auto"
-    )
-  ) %>%
-  addLegend(
-    pal = mypalette, values = ~POP2005, opacity = 0.9,
-    title = "Population (M)", position = "bottomleft"
-  )
 
 # UI ----------------------------------------------------------------------
 
@@ -154,6 +122,7 @@ ui <- dashboardPage(skin = 'green',
             ) # end dashboardPage
 
 
+
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   
@@ -174,8 +143,30 @@ server <- function(input, output) {
               filter = "top",
               options = list(dom = 'tp'))
   })
-
-
+    
+    output$map <- renderLeaflet({
+      leaflet(world_sf)%>%
+        addTiles() %>%
+        setView(lat = 10, lng = 0, zoom = 2) %>%
+        addPolygons(
+          #fillColor = ~ mypalette(POP2005),
+          stroke = TRUE,
+          fillOpacity = 0.9,
+          color = "white",
+          weight = 0.3,
+          label = mytext,
+          labelOptions = labelOptions(
+            style = list("font-weight" = "normal", padding = "3px 8px"),
+            textsize = "13px",
+            direction = "auto"
+          )
+        ) 
+      #%>%
+        #addLegend(
+         # pal = mypalette, values = ~POP2005, opacity = 0.9,
+         # title = "Population (M)", position = "bottomleft"
+        #)
+    })
 }
 
 # Run the application 
