@@ -53,36 +53,40 @@ lab_DF <- show_DF %>%
             currency = names(which.max(table(currency))))
 
 country_DF <- show_DF %>% 
+  mutate(country = replace(country, country == 'the United States', 'United States')) %>%
+  mutate(country = replace(country, country == 'the United Kingdom', 'United Kingdom')) %>%
+  mutate(country = replace(country, country == 'The Netherlands', 'Netherlands')) %>%
+  mutate(country = replace(country, country == 'Nederland', 'Netherlands')) %>% 
   group_by(country) %>% 
   summarize(sample_size = n())
 
 #Map Stuff --------------------------------------------------------------------
 
-download.file(
-  "https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/world_shape_file.zip",
-  destfile = "world_shape_file.zip")
-
-system("unzip world_shape_file.zip")
+# download.file(
+#   "https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/world_shape_file.zip",
+#   destfile = "world_shape_file.zip")
+# 
+# system("unzip world_shape_file.zip")
 
 world_sf <- read_sf(paste0(
   getwd(), "/TM_WORLD_BORDERS_SIMPL-0.3.shp"
 ))
 
-world_sf <- country_DF %>%
-  mutate(country = replace(country, country == 'the United States', 'United States')) %>%
-  mutate(country = replace(country, country == 'the United Kingdom', 'United Kingdom')) %>%
-  mutate(country = replace(country, country == 'The Netherlands', 'Netherlands')) %>%
-  mutate(country = replace(country, country == 'Nederland', 'Netherlands')) %>%
-  right_join(world_sf, country_DF, by = c('country' = 'NAME'))
+# clean up country
+country_clean <- country_DF %>% 
+  filter(!is.na(country))
+  
+world_join <- world_sf %>% 
+  left_join(country_clean, by = c("NAME" = "country"))
 
 mypalette <- colorNumeric(
-  palette = "viridis", domain = world_sf$sample_size,
+  palette = "viridis", domain = world_join$sample_size,
   na.color = "transparent"
 )
 
 mytext <- paste(
-  "Country: ", world_sf$country, "<br/>",
-  "Population: ", round(world_sf$sample_size, 2),
+  "Country: ", world_join$NAME, "<br/>",
+  "Sample Size: ", round(world_join$sample_size, 2),
   sep = ""
 ) %>%
   lapply(htmltools::HTML)
@@ -149,11 +153,11 @@ server <- function(input, output) {
   })
     
     output$map <- renderLeaflet({
-      leaflet(world_sf)%>%
+      leaflet(world_join) %>%
         addTiles() %>%
         setView(lat = 10, lng = 0, zoom = 2) %>%
         addPolygons(
-          data = world_sf$geometry,
+          data = world_join,
           fillColor = ~ mypalette(sample_size),
           stroke = TRUE,
           fillOpacity = 0.9,
