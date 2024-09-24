@@ -68,20 +68,25 @@ world_sf <- read_sf(paste0(
   getwd(), "/TM_WORLD_BORDERS_SIMPL-0.3.shp"
 ))
 
-world_sf <- country_DF
+world_sf <- country_DF %>%
+  mutate(country = replace(country, country == 'the United States', 'United States')) %>%
+  mutate(country = replace(country, country == 'the United Kingdom', 'United Kingdom')) %>%
+  mutate(country = replace(country, country == 'The Netherlands', 'Netherlands')) %>%
+  mutate(country = replace(country, country == 'Nederland', 'Netherlands')) %>%
+  right_join(world_sf, country_DF, by = c("country"="NAME"))
 
-#mypalette <- colorNumeric(
-#  palette = "viridis", domain = world_sf$country,
-#  na.color = "transparent"
-#)
+mypalette <- colorNumeric(
+  palette = "viridis", domain = world_sf$sample_size,
+  na.color = "transparent"
+)
 
 mytext <- paste(
   "Country: ", world_sf$country, "<br/>",
-  "Area: ", world_sf$country, "<br/>",
-  #"Population: ", round(world_sf$POP2005, 2),
+  "Population: ", round(world_sf$sample_size, 2),
   sep = ""
 ) %>%
   lapply(htmltools::HTML)
+
 
 # UI ----------------------------------------------------------------------
 
@@ -149,7 +154,8 @@ server <- function(input, output) {
         addTiles() %>%
         setView(lat = 10, lng = 0, zoom = 2) %>%
         addPolygons(
-          #fillColor = ~ mypalette(POP2005),
+          data = world_sf$geometry,
+          fillColor = ~ mypalette(sample_size),
           stroke = TRUE,
           fillOpacity = 0.9,
           color = "white",
@@ -160,12 +166,11 @@ server <- function(input, output) {
             textsize = "13px",
             direction = "auto"
           )
-        ) 
-      #%>%
-        #addLegend(
-         # pal = mypalette, values = ~POP2005, opacity = 0.9,
-         # title = "Population (M)", position = "bottomleft"
-        #)
+        )%>%
+        addLegend(
+          pal = mypalette, values = ~sample_size, opacity = 0.9,
+          title = "Participant Count", position = "bottomleft"
+        )
     })
 }
 
