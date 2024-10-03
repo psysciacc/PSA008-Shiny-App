@@ -42,7 +42,7 @@ show_DF <- the_study %>%
   mutate(ParticipantCode = as.character(ParticipantCode))
 
 lab_DF <- show_DF %>% 
-  filter(Progress == 100) %>%
+  filter(Progress == 95) %>%
   # filter(!is.na(totalmoney)) %>%
   mutate(LabID = as.numeric(gsub("[[:punct:]]", "", LabID))) %>% 
   group_by(LabID) %>%
