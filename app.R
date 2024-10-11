@@ -42,13 +42,13 @@ show_DF <- the_study %>%
   mutate(ParticipantCode = as.character(ParticipantCode))
 
 lab_DF <- show_DF %>% 
-  filter(Progress == 95) %>%
+  filter(Progress >= 95) %>%
   # filter(!is.na(totalmoney)) %>%
   mutate(LabID = as.numeric(gsub("[[:punct:]]", "", LabID))) %>% 
   group_by(LabID) %>%
   summarize(sample_size = n(),
-            StartDate = min(RecordedDate), 
-            EndDate = max(RecordedDate),
+            StartDate = min(RecordedDate, na.rm = T), 
+            EndDate = max(RecordedDate, na.rm = T),
             totalmoney = sum(totalmoney, na.rm = T),
             currency = names(which.max(table(currency))))
 
