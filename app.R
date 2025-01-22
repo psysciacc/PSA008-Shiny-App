@@ -57,6 +57,16 @@ country_DF <- show_DF %>%
   mutate(country = replace(country, country == 'the United Kingdom', 'United Kingdom')) %>%
   mutate(country = replace(country, country == 'The Netherlands', 'Netherlands')) %>%
   mutate(country = replace(country, country == 'Nederland', 'Netherlands')) %>% 
+  mutate(country = replace(country, country == 'España', 'Spain')) %>%   
+  mutate(country = replace(country, country == 'Italia', 'Italy')) %>%
+  mutate(country = replace(country, country == 'Polska', 'Poland')) %>%
+  mutate(country = replace(country, country == 'România', 'Romania')) %>%
+  mutate(country = replace(country, country == 'México', 'Mexico')) %>%
+  mutate(country = replace(country, country == 'Srbija', 'Serbia')) %>%
+  mutate(country = replace(country, country == 'Türkiye', 'Turkey')) %>%
+  mutate(country = replace(country, country == 'России', 'Russia')) %>%
+  mutate(country = replace(country, country == 'ישראל', 'Israel')) %>%
+  mutate(country = replace(country, country == '中国', 'China')) %>%
   group_by(country) %>% 
   summarize(sample_size = n())
 
