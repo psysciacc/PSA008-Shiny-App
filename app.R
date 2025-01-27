@@ -67,6 +67,7 @@ country_DF <- show_DF %>%
   mutate(country = replace(country, country == 'России', 'Russia')) %>%
   mutate(country = replace(country, country == 'ישראל', 'Israel')) %>%
   mutate(country = replace(country, country == '中国', 'China')) %>%
+  mutate(country = replace(country, country == '日本', 'Japan')) %>%
   group_by(country) %>% 
   summarize(sample_size = n())
 
