@@ -85,22 +85,31 @@ world_sf <- read_sf(paste0(
 
 # clean up country
 country_clean <- country_DF %>% 
-  filter(!is.na(country))
-  
-world_join <- world_sf %>% 
-  left_join(country_clean, by = c("NAME" = "country"))
+  filter(!is.na(country)) %>% 
+  mutate(sample_sizeF = ifelse(
+    sample_size < 100, "< 100", ifelse(
+      sample_size >= 100 & sample_size < 200, "100-199", ifelse(
+        sample_size >= 200 & sample_size < 300, "200-299", "300+"
+      )
+    )
+  )
+  )
 
-mypalette <- colorNumeric(
-  palette = "viridis", domain = world_join$sample_size,
+world_join <- world_sf %>% 
+  left_join(country_clean, by = c("NAME" = "country")) 
+
+mypalette <- colorFactor(
+  palette = "viridis",  # Or any other color palette like "Set1", "Accent"
+  domain = world_join$sample_sizeF,
   na.color = "transparent"
 )
-
 mytext <- paste(
   "Country: ", world_join$NAME, "<br/>",
   "Sample Size: ", round(world_join$sample_size, 2),
   sep = ""
 ) %>%
   lapply(htmltools::HTML)
+
 
 # UI ----------------------------------------------------------------------
 
@@ -163,29 +172,29 @@ server <- function(input, output) {
               options = list(dom = 'tp'))
   })
     
-    output$map <- renderLeaflet({
-      leaflet(world_join) %>%
-        addTiles() %>%
-        setView(lat = 10, lng = 0, zoom = 2) %>%
-        addPolygons(
-          data = world_join,
-          fillColor = ~ mypalette(sample_size),
-          stroke = TRUE,
-          fillOpacity = 0.9,
-          color = "white",
-          weight = 0.3,
-          label = mytext,
-          labelOptions = labelOptions(
-            style = list("font-weight" = "normal", padding = "3px 8px"),
-            textsize = "13px",
-            direction = "auto"
-          )
-        )%>%
-        addLegend(
-          pal = mypalette, values = ~sample_size, opacity = 0.9,
-          title = "Participant Count", position = "bottomleft"
+  output$map <- renderLeaflet({
+    leaflet(world_join) %>%
+      addTiles() %>%
+      setView(lat = 10, lng = 0, zoom = 2) %>%
+      addPolygons(
+        data = world_join,
+        fillColor = ~ mypalette(sample_sizeF),
+        stroke = TRUE,
+        fillOpacity = 0.9,
+        color = "white",
+        weight = 0.3,
+        label = mytext,
+        labelOptions = labelOptions(
+          style = list("font-weight" = "normal", padding = "3px 8px"),
+          textsize = "13px",
+          direction = "auto"
         )
-    })
+      )%>%
+      addLegend(
+        pal = mypalette, values = ~sample_sizeF, opacity = 0.9,
+        title = "Participant Count", position = "bottomleft"
+      )
+  })
 }
 
 # Run the application 
