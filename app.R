@@ -45,6 +45,7 @@ lab_DF <- show_DF %>%
   filter(Progress >= 95) %>%
   # filter(!is.na(totalmoney)) %>%
   mutate(LabID = as.numeric(gsub("[[:punct:]]", "", LabID))) %>% 
+  mutate(LabID = as.character(LabID)) %>% 
   group_by(LabID) %>%
   summarize(sample_size = n(),
             StartDate = min(RecordedDate, na.rm = T), 
@@ -165,6 +166,15 @@ server <- function(input, output) {
               filter = "top",
               options = list(dom = 'tp'))
   })
+  
+  output$overall_total2 <- renderInfoBox({
+    infoBox("Complete", nrow(show_DF %>% filter(Progress > 95)), icon = icon("users"), color = "blue")
+  })
+  
+  output$overall_total <- renderInfoBox({
+    infoBox("All", nrow(show_DF), icon = icon("users"), color = "purple")
+  })
+  
   
   output$country_DF_table <- renderDT({
     datatable(country_DF, rownames = F,

@@ -1,7 +1,15 @@
 overall_tab <- 
   tabItem(tabName = "overall_tab",
           fluidRow(
-            
+            box(
+              title = tags$b("Overall Counts"),
+              collapsible = TRUE,
+              solidHeader = TRUE,
+              status = "primary",
+              width = 12,
+              infoBoxOutput("overall_total"),
+              infoBoxOutput("overall_total2")
+            ),           
             # participant check ----
             box(
               title = tags$b("Participant Counts"),
