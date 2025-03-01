@@ -89,8 +89,8 @@ country_clean <- country_DF %>%
   filter(!is.na(country)) %>% 
   mutate(sample_sizeF = ifelse(
     sample_size < 100, "< 100", ifelse(
-      sample_size >= 100 & sample_size < 200, "100-199", ifelse(
-        sample_size >= 200 & sample_size < 300, "200-299", "300+"
+      sample_size >= 100 & sample_size < 249, "100-249", ifelse(
+        sample_size >= 250 & sample_size < 400, "250-399", "400+"
       )
     )
   )
