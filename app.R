@@ -69,6 +69,9 @@ country_DF <- show_DF %>%
   mutate(country = replace(country, country == 'ישראל', 'Israel')) %>%
   mutate(country = replace(country, country == '中国', 'China')) %>%
   mutate(country = replace(country, country == '日本', 'Japan')) %>%
+  mutate(country = replace(country, country == 'Česká Republika', 'Czech Republic')) %>%
+  mutate(country = replace(country, country == 'Schweiz', 'Switzerland')) %>%
+  mutate(country = replace(country, country == 'Österreich', 'Austria')) %>%
   group_by(country) %>% 
   summarize(sample_size = n())
 
@@ -89,10 +92,12 @@ country_clean <- country_DF %>%
   filter(!is.na(country)) %>% 
   mutate(sample_sizeF = ifelse(
     sample_size < 100, "< 100", ifelse(
-      sample_size >= 100 & sample_size < 249, "100-249", ifelse(
-        sample_size >= 250 & sample_size < 400, "250-399", "400+"
+      sample_size >= 100 & sample_size < 200, "100-199", ifelse(
+        sample_size >= 200 & sample_size < 300, "200-299",ifelse(
+        sample_size >= 300 & sample_size < 400, "300-399", "400+"
       )
     )
+  )
   )
   )
 
