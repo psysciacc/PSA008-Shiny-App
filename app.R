@@ -36,10 +36,11 @@ show_DF <- the_study %>%
   filter(!(LabID == "SurveyGenerated")) %>% 
   filter(!(grepl("Test|test", LabID))) %>% 
   filter(!is.na(LabID)) %>% 
-  select(LabID, country, RecordedDate, Progress, 
+  select(LabID, CountryLan, country, RecordedDate, Progress, 
          ParticipantCode, currency, totalmoney) %>% 
   mutate(totalmoney = round(totalmoney, digits = 2)) %>% 
-  mutate(ParticipantCode = as.character(ParticipantCode))
+  mutate(ParticipantCode = as.character(ParticipantCode)) %>%
+  mutate(country = if_else(CountryLan == "France_French", "France", country))
 
 lab_DF <- show_DF %>% 
   filter(Progress >= 95) %>%
@@ -72,6 +73,8 @@ country_DF <- show_DF %>%
   mutate(country = replace(country, country == 'Česká Republika', 'Czech Republic')) %>%
   mutate(country = replace(country, country == 'Schweiz', 'Switzerland')) %>%
   mutate(country = replace(country, country == 'Österreich', 'Austria')) %>%
+  mutate(country = replace(country, country == 'Danmark', 'Denmark')) %>%
+  mutate(country = replace(country, country == 'Deutschland', 'Germany')) %>%
   group_by(country) %>% 
   summarize(sample_size = n())
 
