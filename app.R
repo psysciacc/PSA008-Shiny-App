@@ -75,6 +75,7 @@ country_DF <- show_DF %>%
   mutate(country = replace(country, country == 'Österreich', 'Austria')) %>%
   mutate(country = replace(country, country == 'Danmark', 'Denmark')) %>%
   mutate(country = replace(country, country == 'Deutschland', 'Germany')) %>%
+  mutate(country = replace(country, country == 'Brasil', 'Brazil')) %>%
   group_by(country) %>% 
   summarize(sample_size = n())
 
