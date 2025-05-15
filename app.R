@@ -32,6 +32,12 @@ the_study <- fetch_survey(survey_id,
                           convert = FALSE,
                           label = FALSE)
 
+all_data <- the_study %>% 
+  select(LabID, CountryLan, country, RecordedDate, Progress, 
+         ParticipantCode, currency, totalmoney) %>% 
+  mutate(totalmoney = round(totalmoney, digits = 2)) %>% 
+  mutate(ParticipantCode = as.character(ParticipantCode)) 
+
 show_DF <- the_study %>% 
   filter(!(LabID == "SurveyGenerated")) %>% 
   filter(!(grepl("Test|test", LabID))) %>% 
@@ -128,7 +134,8 @@ ui <- dashboardPage(skin = 'green',
               dashboardSidebar(
                 sidebarMenu(
                   menuItem(tags$b("Overall"), tabName = "overall_tab"),
-                  menuItem(tags$b("Countries"), tabName = "country_tab")
+                  menuItem(tags$b("Countries"), tabName = "country_tab"),
+                  menuItem(tags$b("All Data"), tabName = "all_tab")
                 )
               ),
               
@@ -154,7 +161,8 @@ ui <- dashboardPage(skin = 'green',
                 ## show the tab items
                 tabItems(
                   overall_tab,
-                  country_tab
+                  country_tab,
+                  all_tab
                 ) # end tabItems
               ) # end dashboardBody
             ) # end dashboardPage
@@ -172,6 +180,12 @@ server <- function(input, output) {
   
   output$lab_DF_table <- renderDT({
     datatable(lab_DF, rownames = F,
+              filter = "top",
+              options = list(dom = 'tp'))
+  })
+  
+  output$all_DF_table <- renderDT({
+    datatable(all_data, rownames = F,
               filter = "top",
               options = list(dom = 'tp'))
   })
