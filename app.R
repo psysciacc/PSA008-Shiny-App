@@ -42,7 +42,7 @@ show_DF <- the_study %>%
   filter(!(LabID == "SurveyGenerated")) %>% 
   filter(!(grepl("Test|test", LabID))) %>% 
   filter(!is.na(LabID)) %>% 
-  select(LabID, CountryLan, country, RecordedDate, Progress, 
+  select(LabID, country, RecordedDate, Progress, 
          ParticipantCode, currency, totalmoney) %>% 
   mutate(totalmoney = round(totalmoney, digits = 2)) %>% 
   mutate(ParticipantCode = as.character(ParticipantCode)) %>%
@@ -82,6 +82,8 @@ country_DF <- show_DF %>%
   mutate(country = replace(country, country == 'Danmark', 'Denmark')) %>%
   mutate(country = replace(country, country == 'Deutschland', 'Germany')) %>%
   mutate(country = replace(country, country == 'Brasil', 'Brazil')) %>%
+  mutate(country = replace(country, country == 'السعودية','Saudi Arabia')) %>%
+  mutate(country = replace(country, country == 'الكويت','Kuwait')) %>%
   group_by(country) %>% 
   summarize(sample_size = n())
 
