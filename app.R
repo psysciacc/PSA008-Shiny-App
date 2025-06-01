@@ -38,7 +38,7 @@ all_data <- the_study %>%
   mutate(totalmoney = round(totalmoney, digits = 2)) %>% 
   mutate(ParticipantCode = as.character(ParticipantCode)) 
 
-ashow_DF <- the_study %>% 
+show_DF <- the_study %>% 
   filter(!(LabID == "SurveyGenerated")) %>% 
   filter(!(grepl("Test|test", LabID))) %>% 
   filter(!is.na(LabID)) %>% 
