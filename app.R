@@ -38,15 +38,17 @@ all_data <- the_study %>%
   mutate(totalmoney = round(totalmoney, digits = 2)) %>% 
   mutate(ParticipantCode = as.character(ParticipantCode)) 
 
-show_DF <- the_study %>% 
+ashow_DF <- the_study %>% 
   filter(!(LabID == "SurveyGenerated")) %>% 
   filter(!(grepl("Test|test", LabID))) %>% 
   filter(!is.na(LabID)) %>% 
-  select(LabID, country, RecordedDate, Progress, 
+  select(LabID, CountryLan, country, RecordedDate, Progress, 
          ParticipantCode, currency, totalmoney) %>% 
   mutate(totalmoney = round(totalmoney, digits = 2)) %>% 
   mutate(ParticipantCode = as.character(ParticipantCode)) %>%
-  mutate(country = if_else(CountryLan == "France_French", "France", country))
+  mutate(country = if_else(CountryLan == "France_French", "France", 
+                           if_else(CountryLan == "Benin_French", "Benin", country))) %>%
+  select(-CountryLan)
 
 lab_DF <- show_DF %>% 
   filter(Progress >= 95) %>%
