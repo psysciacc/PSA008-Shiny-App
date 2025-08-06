@@ -49,8 +49,7 @@ small_DF <- the_study %>%
                names_to = "type",
                values_to = "amount") %>%
   filter(!is.na(amount)) %>% 
-  mutate(ParticipantCode = as.character(ParticipantCode))
-
+  mutate(ParticipantCode = as.character(ParticipantCode)) 
 
 # grab one random ---------------------------------------------------------
 if (nrow(small_DF) > 0) {
