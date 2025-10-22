@@ -40,7 +40,14 @@ the_study <- fetch_survey(survey_id,
                           convert = FALSE,
                           label = FALSE)
 
-# add other surveys 
+the_study_2 <- fetch_survey("SV_6PZLNHEoQr9fQoK",
+                            convert = FALSE,
+                            label = FALSE)
+
+if (nrow(the_study_2) > 0) {
+  the_study <- the_study %>% 
+    bind_rows(the_study_2) 
+  }
 
 small_DF <- the_study %>%
   select(all_of(variables_needed), RecordedDate, LabID) %>%

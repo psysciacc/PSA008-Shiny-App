@@ -15,10 +15,6 @@ library(RColorBrewer)
 # source("api_key.R")
 source("tabs.R")
 
-# group assignments 
-# check the money assignments is correct 
-# 
-
 # Get Study Data ----------------------------------------------------------
 
 # new last changes copy
@@ -32,11 +28,50 @@ the_study <- fetch_survey(survey_id,
                           convert = FALSE,
                           label = FALSE)
 
-all_data <- the_study %>% 
-  select(LabID, CountryLan, country, RecordedDate, Progress, 
-         ParticipantCode, currency, totalmoney) %>% 
-  mutate(totalmoney = round(totalmoney, digits = 2)) %>% 
-  mutate(ParticipantCode = as.character(ParticipantCode)) 
+the_study_2 <- fetch_survey("SV_6PZLNHEoQr9fQoK",
+                            convert = FALSE,
+                            label = FALSE)
+
+if (nrow(the_study_2) > 0) {
+  all_data <- the_study %>% 
+    bind_rows(the_study_2) %>% 
+    select(LabID, CountryLan, country, RecordedDate, Progress, 
+           ParticipantCode, currency, totalmoney) %>% 
+    mutate(totalmoney = round(totalmoney, digits = 2)) %>% 
+    mutate(ParticipantCode = as.character(ParticipantCode)) 
+  
+} else {
+  all_data <- the_study %>% 
+    select(LabID, CountryLan, country, RecordedDate, Progress, 
+           ParticipantCode, currency, totalmoney) %>% 
+    mutate(totalmoney = round(totalmoney, digits = 2)) %>% 
+    mutate(ParticipantCode = as.character(ParticipantCode)) 
+  
+}
+
+# fix issue with french codes
+all_data <- all_data %>% 
+  mutate(country = ifelse(
+    LabID == "4412", "Canada", ifelse(
+      LabID == "4570", "Switzerland", ifelse(
+        LabID == "4315", "Canada", ifelse(
+          LabID == "3226", "India", ifelse(
+            LabID == "4113", "Polska", ifelse(
+              LabID == "3157", "Philippines", country
+            )
+          )
+        )
+      )
+      
+    )
+  ),
+  CountryLan = ifelse(
+    LabID == "4315", "Canada_EN", ifelse(
+      LabID == "1113", "Poland_Polish", CountryLan
+    )
+  )
+  )
+
 
 show_DF <- the_study %>% 
   filter(!(LabID == "SurveyGenerated")) %>% 
