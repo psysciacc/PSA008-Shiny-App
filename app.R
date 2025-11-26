@@ -34,9 +34,11 @@ the_study_2 <- fetch_survey("SV_6PZLNHEoQr9fQoK",
 
 if (nrow(the_study_2) > 0) {
   all_data <- the_study %>% 
-    bind_rows(the_study_2) %>% 
     select(LabID, CountryLan, country, RecordedDate, Progress, 
            ParticipantCode, currency, totalmoney) %>% 
+    bind_rows(the_study_2 %>% 
+                select(LabID, CountryLan, country, RecordedDate, Progress, 
+                       ParticipantCode, currency, totalmoney)) %>% 
     mutate(totalmoney = round(totalmoney, digits = 2)) %>% 
     mutate(ParticipantCode = as.character(ParticipantCode)) 
   
@@ -57,7 +59,25 @@ all_data <- all_data %>%
         LabID == "4315", "Canada", ifelse(
           LabID == "3226", "India", ifelse(
             LabID == "4113", "Polska", ifelse(
-              LabID == "3157", "Philippines", country
+              LabID == "3157", "Philippines", ifelse(
+                LabID == "2958", "Benin", ifelse(
+                  LabID == "972", "France", ifelse(
+                    LabID == "528", "France", ifelse(
+                      LabID == "2062", "France", ifelse(
+                        LabID == "4688", "France", ifelse(
+                          LabID == "4285", "Serbia", ifelse(
+                            LabID == "4570$", "Swizterland", ifelse(
+                              LabID == "1113", "Poland", ifelse(
+                                LabID == "2620", "France", country
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                ) 
+              )
             )
           )
         )
@@ -73,7 +93,7 @@ all_data <- all_data %>%
   )
 
 
-show_DF <- the_study %>% 
+show_DF <- all_data %>% 
   filter(!(LabID == "SurveyGenerated")) %>% 
   filter(!(grepl("Test|test", LabID))) %>% 
   filter(!is.na(LabID)) %>% 
@@ -85,7 +105,7 @@ show_DF <- the_study %>%
                            if_else(CountryLan == "Benin_French", "Benin", country))) %>%
   select(-CountryLan)
 
-lab_DF <- show_DF %>% 
+lab_DF <- all_data %>% 
   filter(Progress >= 95) %>%
   # filter(!is.na(totalmoney)) %>%
   mutate(LabID = as.numeric(gsub("[[:punct:]]", "", LabID))) %>% 
