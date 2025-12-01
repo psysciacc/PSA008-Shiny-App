@@ -68,7 +68,9 @@ all_data <- all_data %>%
                           LabID == "4285", "Serbia", ifelse(
                             LabID == "4570$", "Swizterland", ifelse(
                               LabID == "1113", "Poland", ifelse(
-                                LabID == "2620", "France", country
+                                LabID == "2620", "France", ifelse(
+                                  LabID == "2960", "Bangladesh", country
+                                )
                               )
                             )
                           )
@@ -102,8 +104,7 @@ show_DF <- all_data %>%
   mutate(totalmoney = round(totalmoney, digits = 2)) %>% 
   mutate(ParticipantCode = as.character(ParticipantCode)) %>%
   mutate(country = if_else(CountryLan == "France_French", "France", 
-                           if_else(CountryLan == "Benin_French", "Benin", country))) %>%
-  select(-CountryLan)
+                           if_else(CountryLan == "Benin_French", "Benin", country))) 
 
 lab_DF <- all_data %>% 
   filter(Progress >= 95) %>%
