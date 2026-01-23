@@ -1,7 +1,7 @@
 [
   {
-    "minimal": "secondletter",
-    "nationality": "Türkiyeli",
+    "minimal": "firstletter",
+    "nationality": "Inserted nationality",
     "dg_min_in_self": 20,
     "dg_min_out_self": 20,
     "dg_min_in_out": 10,
