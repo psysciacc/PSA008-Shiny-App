@@ -1,12 +1,12 @@
 [
   {
     "minimal": "secondletter",
-    "nationality": "Deutsch",
-    "dg_min_in_self": 20,
-    "dg_min_out_self": 20,
-    "dg_min_in_out": 10,
-    "dg_nat_in_self": 20,
-    "dg_nat_out_self": 20,
+    "nationality": "Türkiyeli",
+    "dg_min_in_self": 10,
+    "dg_min_out_self": 10,
+    "dg_min_in_out": 12,
+    "dg_nat_in_self": 12,
+    "dg_nat_out_self": 12,
     "dg_nat_in_out": 10
   }
 ]
