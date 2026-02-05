@@ -1,8 +1,8 @@
 [
   {
-    "minimal": "secondletter",
-    "nationality": "Schweizerisch",
-    "dg_min_in_self": 10,
+    "minimal": "firstletter",
+    "nationality": "American",
+    "dg_min_in_self": 8,
     "dg_min_out_self": 10,
     "dg_min_in_out": 10,
     "dg_nat_in_self": 10,
