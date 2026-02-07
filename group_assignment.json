@@ -1,10 +1,10 @@
 [
   {
-    "minimal": "secondletter",
-    "nationality": "Canadian",
-    "dg_min_in_self": 10,
-    "dg_min_out_self": 10,
-    "dg_min_in_out": 10,
+    "minimal": "firstletter",
+    "nationality": "Deutsch",
+    "dg_min_in_self": 0,
+    "dg_min_out_self": 5,
+    "dg_min_in_out": 5,
     "dg_nat_in_self": 10,
     "dg_nat_out_self": 10,
     "dg_nat_in_out": 10
