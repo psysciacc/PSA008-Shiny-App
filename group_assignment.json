@@ -1,12 +1,12 @@
 [
   {
-    "minimal": "firstletter",
-    "nationality": "Deutsch",
-    "dg_min_in_self": 20,
-    "dg_min_out_self": 20,
+    "minimal": "secondletter",
+    "nationality": "Australian",
+    "dg_min_in_self": 10,
+    "dg_min_out_self": 10,
     "dg_min_in_out": 10,
-    "dg_nat_in_self": 20,
-    "dg_nat_out_self": 20,
+    "dg_nat_in_self": 10,
+    "dg_nat_out_self": 10,
     "dg_nat_in_out": 10
   }
 ]
