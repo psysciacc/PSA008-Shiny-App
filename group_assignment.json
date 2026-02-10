@@ -1,12 +1,12 @@
 [
   {
-    "minimal": "firstletter",
-    "nationality": "مصري",
-    "dg_min_in_self": 10,
-    "dg_min_out_self": 10,
-    "dg_min_in_out": 10,
-    "dg_nat_in_self": 10,
-    "dg_nat_out_self": 10,
-    "dg_nat_in_out": 10
+    "minimal": "NA",
+    "nationality": "NA",
+    "dg_min_in_self": ,
+    "dg_min_out_self": ,
+    "dg_min_in_out": ,
+    "dg_nat_in_self": NA,
+    "dg_nat_out_self": NA,
+    "dg_nat_in_out": NA
   }
 ]
