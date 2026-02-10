@@ -1,9 +1,9 @@
 [
   {
-    "minimal": "firstletter",
-    "nationality": "Indian",
+    "minimal": "secondletter",
+    "nationality": "Canadian",
     "dg_min_in_self": 10,
-    "dg_min_out_self": 0,
+    "dg_min_out_self": 10,
     "dg_min_in_out": 10,
     "dg_nat_in_self": 10,
     "dg_nat_out_self": 10,
