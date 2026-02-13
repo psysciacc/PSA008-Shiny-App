@@ -1,12 +1,12 @@
 [
   {
     "minimal": "firstletter",
-    "nationality": "граѓан/ка на Северна Македонија",
-    "dg_min_in_self": 10,
+    "nationality": "Indian",
+    "dg_min_in_self": 20,
     "dg_min_out_self": 10,
-    "dg_min_in_out": 15,
-    "dg_nat_in_self": 10,
-    "dg_nat_out_self": 15,
+    "dg_min_in_out": 10,
+    "dg_nat_in_self": 20,
+    "dg_nat_out_self": 10,
     "dg_nat_in_out": 10
   }
 ]
