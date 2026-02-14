@@ -1,12 +1,12 @@
 [
   {
     "minimal": "secondletter",
-    "nationality": "Inserted nationality",
-    "dg_min_in_self": 12,
+    "nationality": "[ADD_NationalityWord]",
+    "dg_min_in_self": 10,
     "dg_min_out_self": 15,
-    "dg_min_in_out": 13,
-    "dg_nat_in_self": 12,
-    "dg_nat_out_self": 15,
-    "dg_nat_in_out": 13
+    "dg_min_in_out": 15,
+    "dg_nat_in_self": 10,
+    "dg_nat_out_self": 10,
+    "dg_nat_in_out": 10
   }
 ]
