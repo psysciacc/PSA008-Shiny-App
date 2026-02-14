@@ -1,9 +1,9 @@
 [
   {
-    "minimal": "secondletter",
-    "nationality": "British",
-    "dg_min_in_self": 12,
-    "dg_min_out_self": 10,
+    "minimal": "firstletter",
+    "nationality": "Canadian",
+    "dg_min_in_self": 16,
+    "dg_min_out_self": 15,
     "dg_min_in_out": 10,
     "dg_nat_in_self": 10,
     "dg_nat_out_self": 10,
