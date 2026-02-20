@@ -1,11 +1,11 @@
 [
   {
-    "minimal": "secondletter",
-    "nationality": "Canadian",
-    "dg_min_in_self": 10,
-    "dg_min_out_self": 10,
-    "dg_min_in_out": 10,
-    "dg_nat_in_self": 10,
+    "minimal": "firstletter",
+    "nationality": "россияне",
+    "dg_min_in_self": 12,
+    "dg_min_out_self": 8,
+    "dg_min_in_out": 13,
+    "dg_nat_in_self": 11,
     "dg_nat_out_self": 10,
     "dg_nat_in_out": 10
   }
