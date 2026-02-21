@@ -1,12 +1,12 @@
 [
   {
-    "minimal": "firstletter",
-    "nationality": "қазақстандықтар",
-    "dg_min_in_self": 17,
-    "dg_min_out_self": 17,
+    "minimal": "secondletter",
+    "nationality": "مصري",
+    "dg_min_in_self": 10,
+    "dg_min_out_self": 10,
     "dg_min_in_out": 10,
-    "dg_nat_in_self": 17,
-    "dg_nat_out_self": 17,
+    "dg_nat_in_self": 10,
+    "dg_nat_out_self": 10,
     "dg_nat_in_out": 10
   }
 ]
