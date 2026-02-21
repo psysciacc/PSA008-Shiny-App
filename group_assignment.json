@@ -1,12 +1,12 @@
 [
   {
-    "minimal": "secondletter",
-    "nationality": "[ADD_NationalityWord]",
-    "dg_min_in_self": 18,
-    "dg_min_out_self": 18,
-    "dg_min_in_out": 10,
-    "dg_nat_in_self": 18,
-    "dg_nat_out_self": 18,
-    "dg_nat_in_out": 18
+    "minimal": "NA",
+    "nationality": "NA",
+    "dg_min_in_self": ,
+    "dg_min_out_self": ,
+    "dg_min_in_out": ,
+    "dg_nat_in_self": NA,
+    "dg_nat_out_self": NA,
+    "dg_nat_in_out": NA
   }
 ]
