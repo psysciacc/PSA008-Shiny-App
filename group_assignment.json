@@ -1,12 +1,12 @@
 [
   {
-    "minimal": "firstletter",
-    "nationality": "বাংলাদেশী",
-    "dg_min_in_self": 5,
-    "dg_min_out_self": 8,
+    "minimal": "secondletter",
+    "nationality": "Singaporean",
+    "dg_min_in_self": 10,
+    "dg_min_out_self": 10,
     "dg_min_in_out": 10,
-    "dg_nat_in_self": 7,
-    "dg_nat_out_self": 8,
-    "dg_nat_in_out": 8
+    "dg_nat_in_self": 10,
+    "dg_nat_out_self": 10,
+    "dg_nat_in_out": 10
   }
 ]
