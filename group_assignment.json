@@ -1,12 +1,12 @@
 [
   {
     "minimal": "firstletter",
-    "nationality": "Nigerian",
-    "dg_min_in_self": 11,
-    "dg_min_out_self": 12,
-    "dg_min_in_out": 10,
-    "dg_nat_in_self": 11,
-    "dg_nat_out_self": 15,
-    "dg_nat_in_out": 12
+    "nationality": "Filipino",
+    "dg_min_in_self": 19,
+    "dg_min_out_self": 19,
+    "dg_min_in_out": 11,
+    "dg_nat_in_self": 10,
+    "dg_nat_out_self": 20,
+    "dg_nat_in_out": 10
   }
 ]
