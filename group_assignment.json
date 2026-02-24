@@ -1,10 +1,10 @@
 [
   {
     "minimal": "firstletter",
-    "nationality": "Chinese",
-    "dg_min_in_self": 12,
-    "dg_min_out_self": 15,
-    "dg_min_in_out": 10,
+    "nationality": "Italiano/a",
+    "dg_min_in_self": 19,
+    "dg_min_out_self": 20,
+    "dg_min_in_out": 15,
     "dg_nat_in_self": 10,
     "dg_nat_out_self": 10,
     "dg_nat_in_out": 10
