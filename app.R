@@ -17,20 +17,8 @@ source("tabs.R")
 
 # Get Study Data ----------------------------------------------------------
 
-# new last changes copy
-survey_id <- "SV_8k10IEYESlBLf5I"
-
-the_study <- fetch_survey(survey_id, 
-                          # use this later for filtering out nonsense 
-                          #start_date = "2018-10-01",
-                          #end_date = "2018-10-31",
-                          #include_questions = variables_needed, 
-                          convert = FALSE,
-                          label = FALSE)
-
-the_study_2 <- fetch_survey("SV_6PZLNHEoQr9fQoK",
-                            convert = FALSE,
-                            label = FALSE)
+the_study <- readRDS("~/ShinyApps/PSA008/data/the_study.rds")
+the_study_2 <- readRDS("~/ShinyApps/PSA008/data/the_study_2.rds")
 
 if (nrow(the_study_2) > 0) {
   all_data <- the_study %>% 
