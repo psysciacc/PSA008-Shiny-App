@@ -24,5 +24,5 @@ the_study_2 <- fetch_survey("SV_6PZLNHEoQr9fQoK",
                             label = FALSE)
 
 
-saveRDS(the_study, "data/the_study.rds")
-saveRDS(the_study_2, "data/the_study_2.rds")
+saveRDS(the_study, "~/ShinyApps/PSA008/data/the_study.rds")
+saveRDS(the_study_2, "~/ShinyApps/PSA008/data/the_study_2.rds")
